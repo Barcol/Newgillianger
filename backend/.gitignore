@@ -1,0 +1,79 @@
+# Rails configuration files
+/config/database.yml
+/config/master.key
+/config/credentials/*.key
+
+# Log files
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Compiled assets
+/public/assets
+
+# Development uploaded files
+/storage/*
+!/storage/.keep
+
+# Yarn dependencies
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+# Environment variables
+.env
+.env.*
+
+# Database files
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/*.sqlite3-[0-9]*
+
+# Test coverage
+/coverage/*
+
+# IDE files
+.idea
+.vscode
+
+# System files
+.DS_Store
+*.swp
+*~
+
+# Bundler files
+/.bundle
+/vendor/bundle
+
+# Test temporary files
+/test/tmp/
+/test/version_tmp/
+
+# Temporary files
+/tmp/*
+!/tmp/.keep
+
+# Public uploads
+/public/uploads
+
+# Webpack compiled assets
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+# RVM configuration
+.rvmrc
+
+# Byebug history
+.byebug_history
+
+# Credentials master key
+/config/master.key
+
+# Environment variables
+.env
