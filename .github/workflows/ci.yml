@@ -42,13 +42,13 @@ jobs:
           bundler-cache: true
           working-directory: backend
 
-      - name: Run RuboCop
+      - name: Lint code for consistent style
         run: |
           echo "Files with offenses:"
-          bundle exec rubocop --require rubocop-rspec --format files
+          bundle exec rubocop --format files
           echo "Detailed offenses:"
-          bundle exec rubocop --require rubocop-rspec --format progress --format offenses
-          bundle exec rubocop --require rubocop-rspec -f github
+          bundle exec rubocop --format progress --format offenses
+          bundle exec rubocop -f github
 
   test:
     runs-on: ubuntu-latest
