@@ -50,7 +50,6 @@ jobs:
           bundle exec rubocop --format progress --format offenses
           bundle exec rubocop -f github
 
-
   test:
     runs-on: ubuntu-latest
     services:
