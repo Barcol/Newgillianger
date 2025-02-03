@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   def hello
-    render json: { message: "hello world" }
+    logger.info "Received request at #{Time.now}"
+    render json: { content: "Hello World, request time: #{Time.now}" }
   end
 end
