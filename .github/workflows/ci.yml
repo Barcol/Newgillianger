@@ -92,7 +92,6 @@ jobs:
           path: tmp/screenshots
           if-no-files-found: ignore
 
-
     services:
       postgres:
         image: postgres
