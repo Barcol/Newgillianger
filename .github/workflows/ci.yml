@@ -46,12 +46,13 @@ jobs:
         run: |
           echo "Files with offenses:"
           bundle exec rubocop --format files
-          bundle exec rubocop --format offenses
+          echo "Detailed offenses:"
+          bundle exec rubocop --format progress --format offenses
           bundle exec rubocop -f github
+
 
   test:
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres
@@ -81,9 +82,12 @@ jobs:
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
-        run: bundle exec rails db:test:prepare test test:system
+        run: |
+          bundle exec rails db:migrate
+          bundle exec rails db:test:prepare
+          bundle exec rails test test:system
 
-      - name: Keep screenshots from failed system tests
+      - name: Keep screenshots
         uses: actions/upload-artifact@v4
         if: failure()
         with:
