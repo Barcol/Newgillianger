@@ -46,13 +46,52 @@ jobs:
         run: |
           echo "Files with offenses:"
           bundle exec rubocop --format files
+          bundle exec rubocop --format offenses
           bundle exec rubocop -f github
 
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips postgresql-client
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+          working-directory: backend
+
+      - name: Run tests
         working-directory: backend
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+        run: bundle exec rails db:test:prepare test test:system
+
+      - name: Keep screenshots
+        working-directory: backend
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: screenshots
+          path: tmp/screenshots
+          if-no-files-found: ignore
+
 
     services:
       postgres:
