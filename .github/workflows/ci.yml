@@ -24,7 +24,7 @@ jobs:
           working-directory: backend
 
       - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bundle exec brakeman -p . --no-pager --no-exit-on-warn --no-exit-on-error
+        run: bundle exec brakeman -p . --no-pager --no-exit-on-warn
 
   lint:
     runs-on: ubuntu-latest
@@ -43,7 +43,10 @@ jobs:
           working-directory: backend
 
       - name: Lint code for consistent style
-        run: bundle exec rubocop -f github
+          run: |
+            echo "Files with offenses:"
+            bundle exec rubocop --format files
+            bundle exec rubocop -f github
 
   test:
     runs-on: ubuntu-latest
