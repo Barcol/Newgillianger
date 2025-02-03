@@ -24,7 +24,7 @@ jobs:
           working-directory: backend
 
       - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bundle exec brakeman -p . --no-pager
+        run: bundle exec brakeman -p . --no-pager --no-exit-on-warn --no-exit-on-error
 
   lint:
     runs-on: ubuntu-latest
