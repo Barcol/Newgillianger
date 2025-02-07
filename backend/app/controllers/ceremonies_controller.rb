@@ -33,14 +33,14 @@ class CeremoniesController < ApplicationController
   # DELETE /ceremonies/:id
   def destroy
     ceremony = Ceremony.find(params[:id])
-    if ceremony.destroy
+    if ceremony.soft_delete
       render json: { message: "Ceremony successfully deleted" }, status: :ok
     else
       render json: { errors: ceremony.errors.full_messages }, status: :unprocessable_entity
     end
   rescue ActiveRecord::RecordNotFound
     render json: { error: "Ceremony not found" }, status: :not_found
-  end
+  end  
 
   private
 

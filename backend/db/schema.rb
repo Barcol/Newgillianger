@@ -12,11 +12,13 @@
 
 ActiveRecord::Schema[7.2].define(version: 2025_02_07_174347) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "ceremonies", force: :cascade do |t|
-    t.string "name"
+  create_table "ceremonies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "event_date"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
