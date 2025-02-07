@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   get "messages/hello", to: "messages#hello"
-  
-  resources :ceremonies, only: [:index, :show, :create, :destroy]
+
+  resources :ceremonies, only: [ :index, :show, :create, :destroy ]
 end

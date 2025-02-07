@@ -3,7 +3,7 @@ class CeremoniesController < ApplicationController
   def index
     ceremonies = Ceremony.order(event_date: :asc).page(params[:page]).per(params[:per_page])
     render json: {
-      ceremonies: ceremonies.as_json(only: [:id, :name, :event_date]),
+      ceremonies: ceremonies.as_json(only: [ :id, :name, :event_date ]),
       meta: {
         current_page: ceremonies.current_page,
         total_pages: ceremonies.total_pages,
@@ -15,16 +15,16 @@ class CeremoniesController < ApplicationController
   # GET /ceremonies/:id
   def show
     ceremony = Ceremony.find(params[:id])
-    render json: ceremony.as_json(only: [:id, :name, :event_date])
+    render json: ceremony.as_json(only: [ :id, :name, :event_date ])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Ceremony not found' }, status: :not_found
+    render json: { error: "Ceremony not found" }, status: :not_found
   end
 
   # POST /ceremonies
   def create
     ceremony = Ceremony.new(ceremony_params)
     if ceremony.save
-      render json: ceremony.as_json(only: [:id, :name, :event_date]), status: :created
+      render json: ceremony.as_json(only: [ :id, :name, :event_date ]), status: :created
     else
       render json: { errors: ceremony.errors.full_messages }, status: :unprocessable_entity
     end
