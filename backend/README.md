@@ -41,7 +41,7 @@ per_page (optional): Elements per page (default 25)
 
 ```
 /ceremonies
-/ceremonies?page=10&per_page=5
+/ceremonies/page/2?per_page=10
 ```
 
 #### Output example

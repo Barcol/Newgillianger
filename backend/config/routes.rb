@@ -10,5 +10,9 @@ Rails.application.routes.draw do
 
   get "messages/hello", to: "messages#hello"
 
-  resources :ceremonies, only: [ :index, :show, :create, :destroy ]
+  concern :paginatable do
+    get "(page/:page)", action: :index, on: :collection, as: ""
+  end
+  
+  resources :ceremonies, only: [:index, :show, :create, :destroy], concerns: :paginatable
 end

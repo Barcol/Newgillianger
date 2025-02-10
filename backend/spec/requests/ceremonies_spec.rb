@@ -37,7 +37,7 @@ RSpec.describe "Ceremonies API", type: :request do
 
     it "returns paginated results" do
       10.times { Ceremony.create(name: "Ceremony", event_date: Time.now) }
-      get "/ceremonies?page=2&per_page=3"
+      get "/ceremonies/page/2?per_page=3"
 
       expect(response).to have_http_status(:ok)
       json_response = JSON.parse(response.body)
