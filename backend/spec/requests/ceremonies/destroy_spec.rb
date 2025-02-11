@@ -13,8 +13,8 @@ RSpec.describe "DELETE /ceremonies/:id", type: :request do
         expect(json_response["message"]).to eq("Ceremony successfully deleted")
 
         ceremony.reload
-        expect(ceremony.deleted_at).not_to be_nil 
-      end 
+        expect(ceremony.deleted_at).not_to be_nil
+      end
     end
 
     context "when the ceremony does not exist" do

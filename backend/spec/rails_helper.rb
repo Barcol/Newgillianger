@@ -33,7 +33,7 @@ end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   if Rails::VERSION::STRING >= "7.1"
-    config.fixture_paths = ["#{::Rails.root}/spec/fixtures"]
+    config.fixture_paths = [ "#{::Rails.root}/spec/fixtures" ]
   else
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
   end
