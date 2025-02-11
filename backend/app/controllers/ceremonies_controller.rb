@@ -1,7 +1,7 @@
 class CeremoniesController < ApplicationController
   # GET /ceremonies
   def index
-    ceremonies = Ceremony.order(event_date: :asc).page(params[:page]).per(params[:per_page])
+    ceremonies = Ceremony.active.order(event_date: :asc).page(params[:page]).per(params[:per_page])
     render json: {
       ceremonies: ceremonies.as_json(only: [ :id, :name, :event_date ]),
       meta: {
