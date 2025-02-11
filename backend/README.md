@@ -165,3 +165,46 @@ DELETE /ceremonies/1
   "error": "Ceremony not found"
 }
 ```
+
+### PUT /ceremonies/:id HTTP/1.1
+
+Edits a specific ceremony by its id
+
+#### Example request
+Content-Type: application/json
+```json
+{
+  "ceremony": {
+    "name": "Updated Ceremony Name",
+    "event_date": "2025-12-31"
+  }
+}
+```
+
+#### Output example (success)
+
+```json
+{
+  "id": 1,
+  "name": "Updated Ceremony Name",
+  "event_date": "2025-12-31"
+}
+
+```
+
+#### Output example (error - not found)
+
+```json
+{
+  "errors": [
+    "Name can't be blank",
+    "Event date is invalid"
+  ]
+}
+```
+```json
+{
+  "error": "Ceremony not found"
+}
+```
+

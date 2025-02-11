@@ -40,7 +40,19 @@ class CeremoniesController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     render json: { error: "Ceremony not found" }, status: :not_found
-  end  
+  end
+
+  # PUT/PATCH /ceremonies/:id
+  def update
+    ceremony = Ceremony.find(params[:id])
+    if ceremony.update(ceremony_params)
+      render json: ceremony.as_json(only: [ :id, :name, :event_date ]), status: :ok
+    else
+      render json: { errors: ceremony.errors.full_messages }, status: :unprocessable_entity
+    end
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "Ceremony not found" }, status: :not_found
+  end
 
   private
 
