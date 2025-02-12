@@ -3,15 +3,17 @@ require "rails_helper"
 RSpec.describe "POST /ceremonies", type: :request do
   describe "POST /ceremonies" do
     context "when the request is valid" do
-      let(:valid_params) { { ceremony: { name: "New Ceremony", event_date: Time.now + 4.days } } }
+      let(:valid_attributes) { attributes_for(:ceremony) }
 
       it "creates a new ceremony" do
-        post "/ceremonies", params: valid_params, as: :json
+        expect {
+          post "/ceremonies", params: { ceremony: valid_attributes }, as: :json
+        }.to change(Ceremony, :count).by(1)
 
         expect(response).to have_http_status(:created)
         json_response = JSON.parse(response.body)
-        expect(json_response["name"]).to eq("New Ceremony")
-        expect(Ceremony.count).to eq(1)
+        expect(json_response["name"]).to eq(valid_attributes[:name])
+        expect(Ceremony.last.name).to eq(valid_attributes[:name])
       end
     end
 

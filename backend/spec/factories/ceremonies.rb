@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :ceremony do
-    name { "MyString" }
-    event_date { "2025-02-07 18:43:47" }
+    name { "Okret nasz wplynie w mgle" }
+    event_date { Time.now + 1.week }
   end
 end

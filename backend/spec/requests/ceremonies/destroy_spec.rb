@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "DELETE /ceremonies/:id", type: :request do
   describe "DELETE /ceremonies/:id" do
     context "when the ceremony exists" do
-      let!(:ceremony) { Ceremony.create(name: "Ceremony to Delete", event_date: Time.now.iso8601) }
+      let!(:ceremony) { create(:ceremony, name: "Ceremony to Delete") }
 
       it "deletes a specific ceremony by id" do
         delete "/ceremonies/#{ceremony.id}"
