@@ -7,3 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+require 'faker'
+
+puts "Seeding Ceremonies ..."
+5.times do
+  Ceremony.create(name: "Bijatyka", event_date: Faker::Date.between(from: 1.month.ago, to: 1.month.from_now))
+  Ceremony.create(name: "Korona w remizie", event_date: Faker::Date.between(from: 1.month.ago, to: 1.month.from_now))
+  Ceremony.create(name: "Zabawa w Żębocinie", event_date: Faker::Date.between(from: 1.month.ago, to: 1.month.from_now))
+  Ceremony.create(name: "Pływanie na łaźni", event_date: Faker::Date.between(from: 1.month.ago, to: 1.month.from_now))
+  Ceremony.create(name: "Release Gothic Remake", event_date: Faker::Date.between(from: 1.month.ago, to: 1.month.from_now))
+end
