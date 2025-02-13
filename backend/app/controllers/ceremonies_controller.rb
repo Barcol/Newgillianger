@@ -45,6 +45,9 @@ class CeremoniesController < ApplicationController
   # PUT/PATCH /ceremonies/:id
   def update
     ceremony = Ceremony.find(params[:id])
+
+    render json: { error: "Ceremony deleted or gone" }, status: :gone if ceremony.discarded?
+
     if ceremony.update(ceremony_params)
       render json: ceremony.as_json(only: [ :id, :name, :event_date ]), status: :ok
     else

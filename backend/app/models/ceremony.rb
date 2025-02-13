@@ -4,6 +4,7 @@ class Ceremony < ApplicationRecord
   validate :event_date_is_valid_datetime
 
   scope :active, -> { where(deleted_at: nil) }
+  scope :discarded, -> { where.not(deleted_at: nil) }
 
   def soft_delete
     update(deleted_at: Time.current)
