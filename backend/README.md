@@ -9,6 +9,7 @@
         *   [GET /ceremonies/:id](#get-ceremoniesid)
         *   [POST /ceremonies](#post-ceremonies)
         *   [DELETE /ceremonies/:id](#delete-ceremoniesid)
+        *   [PUT /ceremonies/:id](#put-ceremoniesid)
 
 ### Setup
 
@@ -166,7 +167,7 @@ DELETE /ceremonies/1
 }
 ```
 
-### PUT /ceremonies/:id HTTP/1.1
+### PUT /ceremonies/:id
 
 Edits a specific ceremony by its id
 
