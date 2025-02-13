@@ -297,7 +297,6 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
-  factory_bot (~> 6.5, >= 6.5.1)
   factory_bot_rails
   faker (~> 3.5, >= 3.5.1)
   kaminari (~> 1.2, >= 1.2.2)

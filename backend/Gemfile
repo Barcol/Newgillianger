@@ -51,9 +51,6 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "rails-controller-testing"
 
-  # Fixtures replacement with a straightforward definition syntax, support for multiple build strategies
-  gem "factory_bot", "~> 6.5", ">= 6.5.1"
-
   # Debug application with pry
   gem "pry-rails"
 end
