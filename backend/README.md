@@ -12,14 +12,14 @@
 
 ### Setup
 
-```
+```bash
 bundle
 rails db:create
 ```
 
 ### Run
 
-```
+```bash
 rails s
 ```
 
@@ -32,14 +32,14 @@ rails s
 Returns all ceremonies ids, names and event_dates
 
 #### Optional parameters
-```
+```bash
 page (optional): Page number (default 1)
 per_page (optional): Elements per page (default 25)
 ```
 
 #### Example requests
 
-```
+```bash
 /ceremonies
 /ceremonies/page/2?per_page=10
 ```
@@ -75,7 +75,7 @@ Returns a specific ceremony by id
 
 #### Example request
 
-```
+```bash
 /ceremonies/1
 ```
 
@@ -93,7 +93,7 @@ Returns a specific ceremony by id
 
 Creates a new ceremony
 
-```
+```bash
 curl -X POST http://localhost:3000/ceremonies -H 'Content-Type: application/json' -d '{"ceremony": {"name": "Nowa Ceremonia", "event_date": "2025-03-15T18:00:00Z"}}'
 ```
 
@@ -146,7 +146,7 @@ Deletes a specific ceremony by id
 
 #### Example request
 
-```
+```bash
 DELETE /ceremonies/1
 ```
 
@@ -171,8 +171,9 @@ DELETE /ceremonies/1
 Edits a specific ceremony by its id
 
 #### Example request
-Content-Type: application/json
+
 ```json
+Content-Type: application/json
 {
   "ceremony": {
     "name": "Updated Ceremony Name",
@@ -189,7 +190,6 @@ Content-Type: application/json
   "name": "Updated Ceremony Name",
   "event_date": "2025-12-31"
 }
-
 ```
 
 #### Output example (error - not found)
