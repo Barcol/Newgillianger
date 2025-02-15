@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe "GET /ceremonies", type: :request do
   describe "GET /ceremonies" do
     context "when ceremonies exist" do
-      let!(:ceremony1) { Ceremony.create(name: "Ceremony 1", event_date: Time.now + 1.day) }
-      let!(:ceremony2) { Ceremony.create(name: "Ceremony 2", event_date: Time.now + 2.days) }
+      let!(:ceremony1) { create(:ceremony, name: "Ceremony 1") }
+      let!(:ceremony2) { create(:ceremony, name: "Ceremony 2") }
 
       it "returns a paginated list of ceremonies" do
         get "/ceremonies"
