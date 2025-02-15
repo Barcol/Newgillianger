@@ -5,7 +5,7 @@ RSpec.describe "PUT/PATCH /ceremonies/:id", type: :request do
 
   describe "PUT/PATCH /ceremonies/:id" do
     context "when the request and ceremony id is valid" do
-      let(:valid_params) { { ceremony: { name: "Abordaz", event_date: Time.now + 4.days } } }
+      let!(:valid_params) { create(:ceremony, name: "Abordaz") }
 
       it "updates the ceremony and returns the updated object" do
         put "/ceremonies/#{ceremony.id}", params: valid_params, as: :json
@@ -22,7 +22,7 @@ RSpec.describe "PUT/PATCH /ceremonies/:id", type: :request do
     end
 
     context "when the ceremony id is invalid" do
-      let(:valid_params) { { ceremony: { name: "Abordaz", event_date: Time.now + 4.days } } }
+      let!(:valid_params) { create(:ceremony, name: "Abordaz") }
 
       it "returns a not found error" do
         put "/ceremonies/9999", params: valid_params, as: :json
