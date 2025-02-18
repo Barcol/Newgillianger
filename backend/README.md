@@ -209,3 +209,26 @@ Content-Type: application/json
 }
 ```
 
+## Products
+### POST /products
+
+Creates a new product
+
+```bash
+curl -X POST http://localhost:3000/products \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{"product": {"title": "Nowy produkt", "price": "99.99", "currency": "PLN"}, "ceremony_id": "CEREMONY_UUID"}'
+```
+#### Parameters
+
+```json
+{
+  "product": 
+  {
+    "title": "Nowy produkt", 
+    "price": "99.99", 
+    "currency": "PLN"
+  }, 
+  "ceremony_id": "4c447a05-4632-41ea-a430-9474cbba49c4"
+}
