@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :product do
-    title { "MyString" }
+    title { "Knopers" }
     price { "9.99" }
-    currency { "MyString" }
+    currency { "PLN" }
     ceremony { nil }
   end
 end
