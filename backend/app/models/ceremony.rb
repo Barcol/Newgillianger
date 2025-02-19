@@ -1,6 +1,6 @@
 class Ceremony < ApplicationRecord
   has_many :products, dependent: :destroy
-  
+
   validates :name, presence: true, length: { maximum: 255, message: "is too long (maximum is 255 characters)" }
   validates :event_date, presence: true
   validate :event_date_is_valid_datetime

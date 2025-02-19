@@ -210,6 +210,19 @@ Content-Type: application/json
 ```
 
 ## Products
+
+### GET /products
+Lists all ceremonies products (I believe, in the future, this endpoint will be available only for admins (nice to have during development))
+
+```shell
+/products
+```
+
+```bash
+curl -X GET http://localhost:3000/products -H "Accept: application/json"
+curl -X GET "http://localhost:3000/products/page/1?per_page=20" -H "Accept: application/json"
+```
+
 ### POST /products
 
 Creates a new product
