@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.page(params[:page]).per(params[:per_page] || 10)
+    @products = Product.active.page(params[:page]).per(params[:per_page] || 10)
+
     render json: {
       products: @products,
       meta: {
@@ -21,6 +22,26 @@ class ProductsController < ApplicationController
       render json: { error: "Ceremony not found" }, status: :not_found
     when :validation_error
       render json: { errors: data }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @product = Product.find(params[:id])
+
+    if @product.soft_delete
+      render json: { message: "Product successfully deleted" }, status: :ok
+    else
+      render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def restore
+    @product = Product.unscoped.find(params[:id])
+
+    if @product.restore
+      render json: { message: "Product successfully restored" }, status: :ok
+    else
+      render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

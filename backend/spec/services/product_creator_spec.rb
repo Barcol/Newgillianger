@@ -16,7 +16,7 @@ RSpec.describe ProductCreator do
 
       it "returns :product_saved and the created product" do
         result, product = subject
-        
+
         expect(result).to eq(:product_saved)
         expect(product).to be_a(Product)
         expect(product).to be_persisted

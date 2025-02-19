@@ -5,8 +5,11 @@ class CreateProducts < ActiveRecord::Migration[7.2]
       t.decimal :price, precision: 6, scale: 2, null: false, default: 0
       t.string :currency, null: false, default: "PLN"
       t.references :ceremony, type: :uuid, null: false, foreign_key: true
+      t.datetime :deleted_at
 
       t.timestamps
     end
+
+    add_index :products, :deleted_at
   end
 end

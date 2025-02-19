@@ -15,5 +15,9 @@ Rails.application.routes.draw do
   end
 
   resources :ceremonies, only: [ :index, :show, :create, :destroy, :update ], concerns: :paginatable
-  resources :products, only: [ :create, :index ], concerns: :paginatable
+  resources :products, only: [ :index, :create, :destroy ], concerns: :paginatable do
+    member do
+      post :restore
+    end
+  end
 end

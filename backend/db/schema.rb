@@ -28,9 +28,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_18_184452) do
     t.decimal "price", precision: 6, scale: 2, default: "0.0", null: false
     t.string "currency", default: "PLN", null: false
     t.uuid "ceremony_id", null: false
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ceremony_id"], name: "index_products_on_ceremony_id"
+    t.index ["deleted_at"], name: "index_products_on_deleted_at"
   end
 
   add_foreign_key "products", "ceremonies"
