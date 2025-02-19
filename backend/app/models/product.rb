@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   validates :currency, presence: true
 
   scope :active, -> { where(deleted_at: nil) }
+  scope :inactive, -> { where.not(deleted_at: nil) }
 
   def soft_delete
     update(deleted_at: Time.current)
@@ -13,5 +14,13 @@ class Product < ApplicationRecord
 
   def restore
     update(deleted_at: nil)
+  end
+
+  def active?
+    deleted_at.nil?
+  end
+
+  def inactive?
+    deleted_at.present?
   end
 end
