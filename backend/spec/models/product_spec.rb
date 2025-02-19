@@ -35,7 +35,7 @@ RSpec.describe Product, type: :model do
 
   context "when creating product and ceremony does not exists" do
     let!(:ceremony) { nil }
-    
+
     it "is valid with valid attributes" do
       expect(subject).not_to be_valid
     end
