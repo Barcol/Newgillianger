@@ -10,6 +10,7 @@
         *   [POST /ceremonies](#post-ceremonies)
         *   [DELETE /ceremonies/:id](#delete-ceremoniesid)
         *   [PUT /ceremonies/:id](#put-ceremoniesid)
+        *   [GET /ceremonies/:id/products](#get-ceremoniesidproducts)
 
 ### Setup
 
@@ -209,6 +210,13 @@ Content-Type: application/json
 }
 ```
 
+### GET /ceremonies/:id/products
+
+```sh
+curl -X GET http://localhost:3000/ceremonies/CEREMONY_ID/products -H "Accept: application/json"
+curl -X GET "http://localhost:3000/ceremonies/CEREMONY_ID/products?page=1&per_page=20" -H "Accept: application/json"
+```
+
 ## Products
 
 ### GET /products
@@ -265,12 +273,6 @@ Content-Type: application/json
 ```
 ```shell
 curl -X PUT http://localhost:3000/products/PRODUCT_ID \
-     -H "Content-Type: application/json" \
-     -H "Accept: application/json" \
-     -d '{"product": {"title": "Worki zmienne", "price": "99.99", "currency": "PLN"}}'
-```
-```sh
-curl -X PUT http://localhost:3000/products/2482a1c8-1e27-47f8-a12c-ed3e86dba27e \
      -H "Content-Type: application/json" \
      -H "Accept: application/json" \
      -d '{"product": {"title": "Worki zmienne", "price": "99.99", "currency": "PLN"}}'

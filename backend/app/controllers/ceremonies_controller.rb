@@ -54,6 +54,23 @@ class CeremoniesController < ApplicationController
     render json: { error: "Ceremony not found" }, status: :not_found
   end
 
+  # GET /ceremonies/:id/products
+  def products
+    ceremony = Ceremony.find(params[:id])
+    products = ceremony.products.active.order(created_at: :desc).page(params[:page]).per(params[:per_page])
+
+    render json: {
+      products: products.as_json(only: [ :id, :title, :price, :currency ]),
+      meta: {
+        current_page: products.current_page,
+        total_pages: products.total_pages,
+        total_count: products.total_count
+      }
+    }
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "Ceremony not found" }, status: :not_found
+  end
+
   private
 
   def ceremony_params
