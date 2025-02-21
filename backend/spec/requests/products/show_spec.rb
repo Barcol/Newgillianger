@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Products", type: :request do
   let!(:ceremony) { create(:ceremony) }
   let(:deleted_at) { nil }
-  let!(:product) { create(:product, ceremony: ceremony, deleted_at: deleted_at ) }
+  let!(:product) { create(:product, ceremony: ceremony, deleted_at: deleted_at) }
 
   subject { get product_path(product) }
 
@@ -34,7 +34,7 @@ RSpec.describe "Products", type: :request do
 
     it "returns gone status" do
       subject
-      
+
       expect(response).to have_http_status(:gone)
     end
   end
@@ -51,7 +51,7 @@ RSpec.describe "Products", type: :request do
 
     it "returns a not found response" do
       get product_path(id: product.id)
-      
+
       expect(response).to have_http_status(:not_found)
     end
   end

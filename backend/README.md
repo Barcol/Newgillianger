@@ -245,3 +245,33 @@ curl -X POST http://localhost:3000/products \
   }, 
   "ceremony_id": "4c447a05-4632-41ea-a430-9474cbba49c4"
 }
+```
+
+### PUT /products/:id
+
+Edits a specific product by its id
+
+#### Example request
+
+```json
+Content-Type: application/json
+{
+  "product": {
+    "title": "Worki zmienne",
+    "price": "99.99", 
+    "currency": "PLN"
+  }
+}
+```
+```shell
+curl -X PUT http://localhost:3000/products/PRODUCT_ID \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{"product": {"title": "Worki zmienne", "price": "99.99", "currency": "PLN"}}'
+```
+```sh
+curl -X PUT http://localhost:3000/products/2482a1c8-1e27-47f8-a12c-ed3e86dba27e \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{"product": {"title": "Worki zmienne", "price": "99.99", "currency": "PLN"}}'
+```

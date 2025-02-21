@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  # GET /products
   def index
     @products = Product.active.page(params[:page]).per(params[:per_page] || 10)
 
@@ -12,6 +13,7 @@ class ProductsController < ApplicationController
     }
   end
 
+  # GET /products/:id
   def show
     @product = Product.find(params[:id])
 
@@ -22,6 +24,7 @@ class ProductsController < ApplicationController
     render json: { error: "Product not found" }, status: :not_found
   end
 
+  # POST /products
   def create
     result, data = ProductCreator.call(params[:ceremony_id], product_params)
 
@@ -35,6 +38,7 @@ class ProductsController < ApplicationController
     end
   end
 
+  # DELETE /products/:id
   def destroy
     @product = Product.find(params[:id])
 
@@ -45,6 +49,7 @@ class ProductsController < ApplicationController
     end
   end
 
+  # PUT/PATCH /products/:id
   def restore
     @product = Product.unscoped.find(params[:id])
 
@@ -55,9 +60,25 @@ class ProductsController < ApplicationController
     end
   end
 
+  # PUT/PATCH /products/:id
+  def update
+    product = Product.find(params[:id])
+
+    # TODO: find better way to handle product ceremony id update
+    product_params.merge(ceremony_id: product.ceremony_id) unless product_params[:ceremony_id].present?
+
+    if product.update(product_params)
+      render json: product.as_json(only: [ :title, :price, :currency ]), status: :ok
+    else
+      render json: { errors: product.errors.full_messages }, status: :unprocessable_entity
+    end
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "Product not found" }, status: :not_found
+  end
+
   private
 
   def product_params
-    params.require(:product).permit(:title, :price, :currency)
+    params.require(:product).permit(:title, :price, :currency, :ceremony_id)
   end
 end
