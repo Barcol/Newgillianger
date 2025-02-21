@@ -11,6 +11,10 @@
         *   [DELETE /ceremonies/:id](#delete-ceremoniesid)
         *   [PUT /ceremonies/:id](#put-ceremoniesid)
         *   [GET /ceremonies/:id/products](#get-ceremoniesidproducts)
+    *   [Products](#products)
+        *   [GET /products](#get-products)
+        *   [POST /products](#post-products)
+        *   [PUT /products/:id](#put-productsid)        
 
 ### Setup
 
