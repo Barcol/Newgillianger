@@ -1,8 +1,4 @@
-class ProductCreator
-  def self.call(ceremony_id, product_params)
-    new(ceremony_id, product_params).call
-  end
-
+class ProductCreator < BaseService
   def initialize(ceremony_id, product_params)
     @ceremony_id = ceremony_id
     @product_params = product_params
