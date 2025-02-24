@@ -1,9 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Products", type: :request do
-  let!(:ceremony) { create(:ceremony) }
   let(:deleted_at) { nil }
-  let!(:product) { create(:product, ceremony: ceremony, deleted_at: deleted_at) }
+  let!(:product) { create(:product, deleted_at: deleted_at) }
 
   subject { get product_path(product) }
 

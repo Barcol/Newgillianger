@@ -4,11 +4,11 @@ RSpec.describe "Products", type: :request do
   let!(:ceremony) { create(:ceremony) }
   let!(:product) { create(:product, ceremony_id: ceremony.id) }
 
-  subject { delete product_path(product) }
-
   context "when the product exists" do
+    subject { delete product_path(product) }
+
     it "soft deletes the product" do
-      expect { subject }.to change { product.reload.deleted_at }.from(nil)
+      expect { subject }.to change { product.reload.deleted_at }.from(nil).to(be_within(1.second).of(Time.current))
     end
 
     it "returns a success message" do
@@ -20,7 +20,7 @@ RSpec.describe "Products", type: :request do
     end
 
     context "when the product doesn't exist" do
-      before { product.destroy } # destroy product before so it can't be found
+      subject { delete product_path(id: 'nonexistent') }
 
       it "returns a not found error" do
         subject

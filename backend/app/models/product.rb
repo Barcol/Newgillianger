@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   include SoftDeletable
-  
+
   ALLOWED_CURRENCIES = %w[PLN]
 
   belongs_to :ceremony

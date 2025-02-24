@@ -15,8 +15,8 @@
         *   [GET /products](#get-products)
         *   [POST /products](#post-products)
         *   [PUT /products/:id](#put-productsid)
-        * [DELETE /products/:id](#delete-productsid)
-        * [RESTORE /products/:id](#restore-productsid)
+        *   [DELETE /products/:id](#delete-productsid)
+        *   [RESTORE /products/:id](#restore-productsid)
 
 ### Setup
 

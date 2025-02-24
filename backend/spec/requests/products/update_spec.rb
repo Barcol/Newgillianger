@@ -1,13 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "PUT/PATCH /products/:id", type: :request do
-  let(:ceremony) { create(:ceremony) }
-  let!(:product) { create(:product, ceremony_id: ceremony.id) }
+  let!(:product) { create(:product) }
 
   context "when the request and product id is valid" do
     let!(:valid_params) { { product_id: product.id, title: "Woda muzynianka", price: "10.00", currency: "PLN" } }
 
-    it "updates the ceremony and returns the updated object" do
+    it "updates the product and returns the updated object" do
       put "/products/#{product.id}", params: valid_params, as: :json
 
       json_response = JSON.parse(response.body)

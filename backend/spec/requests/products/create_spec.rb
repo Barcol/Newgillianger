@@ -46,7 +46,7 @@ RSpec.describe ProductsController, type: :request do
 
         json_response = JSON.parse(response.body)
         expect(json_response["errors"]).to include(
-          "currency" => [ "can't be blank" ],
+          "currency" => [ "can't be blank", "must be one of: PLN" ],
           "price" => [ "can't be blank", "is not a number" ],
           "title" => [ "can't be blank", "is too short (minimum is 1 character)" ]
         )

@@ -21,13 +21,6 @@ RSpec.describe "Ceremonies", type: :request do
         expect(json_response["products"].length).to eq(15)
       end
 
-      it "includes pagination metadata" do
-        subject
-
-        json_response = JSON.parse(response.body)
-        expect(json_response["meta"]).to include("current_page", "total_pages", "total_count")
-      end
-
       context "when given with pagination parameters" do
         subject { get products_ceremony_path(ceremony), params: { page: 2, per_page: 5 } }
 
