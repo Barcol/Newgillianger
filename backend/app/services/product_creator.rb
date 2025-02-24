@@ -24,6 +24,8 @@ class ProductCreator
   attr_reader :ceremony_id
   
   def ceremony
-    @ceremony ||= Ceremony.find(ceremony_id)
+    return nil if ceremony_id.nil?
+    
+    @ceremony ||= Ceremony.find_by(id: ceremony_id)
   end
 end
