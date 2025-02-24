@@ -6,7 +6,7 @@ RSpec.describe "Products", type: :request do
 
   subject { post restore_product_path(product) }
 
-  context "when the product is soft deleted" do
+  context "when restoring a soft-deleted, existing product" do
     it "restores the product" do
       expect { subject }.to change { product.reload.deleted_at }.to(nil)
     end
@@ -25,7 +25,7 @@ RSpec.describe "Products", type: :request do
     end
   end
 
-  context "when the product is not soft deleted" do
+  context "when the product is not soft-deleted" do
     before { product.update(deleted_at: nil) }
 
     it "doesn't change the product" do
