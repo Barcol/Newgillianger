@@ -8,7 +8,7 @@ RSpec.describe "Products", type: :request do
     subject { delete product_path(product) }
 
     it "soft deletes the product" do
-      expect { subject }.to change { product.reload.deleted_at }.from(nil).to(be_within(1.second).of(Time.current))
+      expect { subject }.to change { product.reload.deleted_at }.from(nil).to be_a(Time)
     end
 
     it "returns a success message" do

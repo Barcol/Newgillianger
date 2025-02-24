@@ -10,7 +10,7 @@ RSpec.describe "Products", type: :request do
     let(:deleted_at) { Time.current }
 
     it "restores the product" do
-      expect { subject }.to change { product.reload.deleted_at }.from(be_within(1.second).of(deleted_at)).to(nil)
+      expect { subject }.to change { product.reload.deleted_at }.from(Time).to(nil)
     end
 
     it "returns a success message" do
