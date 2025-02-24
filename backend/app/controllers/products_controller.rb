@@ -42,6 +42,8 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
 
+    return render json: { error: "Product is already deleted", deleted_at: @product.deleted_at }, status: :gone if @product.inactive?
+
     if @product.soft_delete
       render json: { message: "Product successfully deleted" }, status: :ok
     else

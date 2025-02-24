@@ -28,5 +28,22 @@ RSpec.describe "Products", type: :request do
         expect(response).to have_http_status(:not_found)
       end
     end
+
+    context "when the product is already soft-deleted" do
+      let!(:product) { create(:product, :deleted) }
+
+      it "returns an unprocessable entity status" do
+        subject
+
+        expect(response).to have_http_status(:gone)
+      end
+
+      it "returns an appropriate error message" do
+        subject
+
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to eq("Product is already deleted")
+      end
+    end
   end
 end
