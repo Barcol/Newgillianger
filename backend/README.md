@@ -14,7 +14,9 @@
     *   [Products](#products)
         *   [GET /products](#get-products)
         *   [POST /products](#post-products)
-        *   [PUT /products/:id](#put-productsid)        
+        *   [PUT /products/:id](#put-productsid)
+        * [DELETE /products/:id](#delete-productsid)
+        * [RESTORE /products/:id](#restore-productsid)
 
 ### Setup
 
@@ -280,4 +282,56 @@ curl -X PUT http://localhost:3000/products/PRODUCT_ID \
      -H "Content-Type: application/json" \
      -H "Accept: application/json" \
      -d '{"product": {"title": "Worki zmienne", "price": "99.99", "currency": "PLN"}}'
+```
+
+### DELETE /products/:id
+
+Deletes a specific product by id
+
+#### Example request
+
+```bash
+DELETE /products/1
+```
+
+#### Output example (success)
+
+```json
+{
+  "message": "Product successfully deleted"
+}
+```
+
+#### Output example (error - not found)
+
+```json
+{
+  "error": "Product not found"
+}
+```
+
+### RESTORE /products/:id
+
+Restores a specific soft-deleted product by id
+
+#### Example request
+
+```bash
+PUT /products/1
+```
+
+#### Output example (success)
+
+```json
+{
+  "message": "Product successfully restored"
+}
+```
+
+#### Output example (error - not found)
+
+```json
+{
+  "error": "Product not found"
+}
 ```
