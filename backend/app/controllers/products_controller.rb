@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
 
   # PUT/PATCH /products/:id
   def restore
-    @product = Product.unscoped.find(params[:id])
+    @product = Product.find(params[:id])
 
     if @product.restore
       render json: { message: "Product successfully restored" }, status: :ok
