@@ -9,7 +9,6 @@ class ProductCreator
   end
 
   def call
-    ceremony = find_ceremony
     return :ceremony_not_found unless ceremony
 
     product = ceremony.products.new(@product_params)
@@ -22,9 +21,9 @@ class ProductCreator
 
   private
 
-  def find_ceremony
-    Ceremony.find(@ceremony_id)
-  rescue ActiveRecord::RecordNotFound
-    nil
+  attr_reader :ceremony_id
+  
+  def ceremony
+    @ceremony ||= Ceremony.find(ceremony_id)
   end
 end
