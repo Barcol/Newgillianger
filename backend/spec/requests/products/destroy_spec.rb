@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Products", type: :request do
   let!(:ceremony) { create(:ceremony) }
-  let!(:product) { create(:product, ceremony_id: ceremony.id) }
+  let!(:product) { create(:product, ceremony: ceremony) }
 
   context "when the product exists" do
     subject { delete product_path(product) }
@@ -30,7 +30,7 @@ RSpec.describe "Products", type: :request do
     end
 
     context "when the product is already soft-deleted" do
-      let!(:product) { create(:product, :deleted) }
+      let!(:product) { create(:product, :inactive) }
 
       it "returns an unprocessable entity status" do
         subject

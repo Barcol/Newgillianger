@@ -6,7 +6,7 @@ FactoryBot.define do
     ceremony
     deleted_at { nil }
 
-    trait :deleted do
+    trait :inactive do
       deleted_at { Time.current }
     end
 

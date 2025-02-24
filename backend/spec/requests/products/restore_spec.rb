@@ -1,14 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe "Products", type: :request do
-  let!(:ceremony) { create(:ceremony) }
-  let!(:product) { create(:product, ceremony_id: ceremony.id, deleted_at: Time.current) }
+  let(:deleted_at) { nil }
+  let!(:product) { create(:product, deleted_at: deleted_at) }
 
   subject { post restore_product_path(product) }
 
   context "when restoring a soft-deleted, existing product" do
+    let(:deleted_at) { Time.current }
+
     it "restores the product" do
-      expect { subject }.to change { product.reload.deleted_at }.to(nil)
+      expect { subject }.to change { product.reload.deleted_at }.from(be_within(1.second).of(deleted_at)).to(nil)
     end
 
     it "returns a success message" do
@@ -26,8 +28,6 @@ RSpec.describe "Products", type: :request do
   end
 
   context "when the product is not soft-deleted" do
-    before { product.update(deleted_at: nil) }
-
     it "doesn't change the product" do
       expect { subject }.not_to change { product.reload.deleted_at }
     end
@@ -42,7 +42,7 @@ RSpec.describe "Products", type: :request do
   end
 
   context "when the product doesn't exist" do
-    before { product.destroy } # destroy product so it doesnt exists for 100%
+    subject { post restore_product_path(id: 'nonexistent') }
 
     it "returns a not found error" do
       subject
