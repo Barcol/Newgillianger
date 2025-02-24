@@ -17,8 +17,6 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
 
-    return render json: { error: "Product is inactive", deleted_at: @product.deleted_at }, status: :gone if @product.inactive?
-
     render json: @product
   rescue ActiveRecord::RecordNotFound
     render json: { error: "Product not found" }, status: :not_found

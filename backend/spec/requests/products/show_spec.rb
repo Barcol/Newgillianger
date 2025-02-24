@@ -7,10 +7,14 @@ RSpec.describe "Products", type: :request do
   subject { get product_path(product) }
 
   context "when the product is active" do
-    it "returns the product" do
+    it "returns success status" do
       subject
 
       expect(response).to have_http_status(:ok)
+    end
+
+    it "returns the product" do
+      subject
 
       json_response = JSON.parse(response.body)
       expect(json_response["id"]).to eq(product.id)
@@ -23,18 +27,17 @@ RSpec.describe "Products", type: :request do
   context "when the product is inactive" do
     let(:deleted_at) { Time.current }
 
-    it "returns an error message" do
+    it "is still accessible" do
       subject
 
       json_response = JSON.parse(response.body)
-      expect(json_response["error"]).to eq("Product is inactive")
       expect(json_response["deleted_at"]).to be_present
     end
 
-    it "returns gone status" do
+    it "returns success status" do
       subject
 
-      expect(response).to have_http_status(:gone)
+      expect(response).to have_http_status(:ok)
     end
   end
 
