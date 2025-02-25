@@ -47,11 +47,17 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
+          bundler-cache: false
           working-directory: backend
 
       - name: Update RubyGems
-        run: gem update --system
+        run: gem update --system 3.3.22
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Bundle install
+        run: bundle install --jobs 4 --retry 3 --path vendor/bundle
 
       - name: Lint code for consistent style
         run: |
@@ -84,11 +90,17 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
+          bundler-cache: false
           working-directory: backend
 
       - name: Update RubyGems
-        run: gem update --system
+        run: gem update --system 3.3.22
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Bundle install
+        run: bundle install --jobs 4 --retry 3 --path vendor/bundle
 
       - name: Database setup
         working-directory: backend
