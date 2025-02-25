@@ -24,7 +24,7 @@ jobs:
           working-directory: backend
           
       - name: Update RubyGems
-        run: gem update --system
+        run: gem update --system 3.3.22
 
       - name: Security scan
         run: bundle exec brakeman -p . --no-pager --no-exit-on-warn
