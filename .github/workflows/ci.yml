@@ -22,6 +22,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
           working-directory: backend
+          
+      - name: Update RubyGems
+        run: gem update --system
 
       - name: Security scan
         run: bundle exec brakeman -p . --no-pager --no-exit-on-warn
@@ -41,6 +44,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
           working-directory: backend
+
+      - name: Update RubyGems
+        run: gem update --system
 
       - name: Lint code for consistent style
         run: |
@@ -75,6 +81,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
           working-directory: backend
+
+      - name: Update RubyGems
+        run: gem update --system
 
       - name: Database setup
         working-directory: backend
