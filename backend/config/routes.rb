@@ -14,5 +14,14 @@ Rails.application.routes.draw do
     get "(page/:page)", action: :index, on: :collection, as: ""
   end
 
-  resources :ceremonies, only: [ :index, :show, :create, :destroy, :update ], concerns: :paginatable
+  resources :ceremonies, only: [ :index, :show, :create, :destroy, :update ], concerns: :paginatable do
+    member do
+      get :products
+    end
+  end
+  resources :products, only: [ :index, :show, :create, :destroy, :update ], concerns: :paginatable do
+    member do
+      post :restore
+    end
+  end
 end

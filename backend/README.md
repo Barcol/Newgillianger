@@ -10,6 +10,13 @@
         *   [POST /ceremonies](#post-ceremonies)
         *   [DELETE /ceremonies/:id](#delete-ceremoniesid)
         *   [PUT /ceremonies/:id](#put-ceremoniesid)
+        *   [GET /ceremonies/:id/products](#get-ceremoniesidproducts)
+    *   [Products](#products)
+        *   [GET /products](#get-products)
+        *   [POST /products](#post-products)
+        *   [PUT /products/:id](#put-productsid)
+        *   [DELETE /products/:id](#delete-productsid)
+        *   [RESTORE /products/:id](#restore-productsid)
 
 ### Setup
 
@@ -209,3 +216,122 @@ Content-Type: application/json
 }
 ```
 
+### GET /ceremonies/:id/products
+
+```sh
+curl -X GET http://localhost:3000/ceremonies/CEREMONY_ID/products -H "Accept: application/json"
+curl -X GET "http://localhost:3000/ceremonies/CEREMONY_ID/products?page=1&per_page=20" -H "Accept: application/json"
+```
+
+## Products
+
+### GET /products
+Lists all ceremonies products (I believe, in the future, this endpoint will be available only for admins (nice to have during development))
+
+```shell
+/products
+```
+
+```bash
+curl -X GET http://localhost:3000/products -H "Accept: application/json"
+curl -X GET "http://localhost:3000/products/page/1?per_page=20" -H "Accept: application/json"
+```
+
+### POST /products
+
+Creates a new product
+
+```bash
+curl -X POST http://localhost:3000/products \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{"product": {"title": "Nowy produkt", "price": "99.99", "currency": "PLN"}, "ceremony_id": "CEREMONY_UUID"}'
+```
+#### Parameters
+
+```json
+{
+  "product": 
+  {
+    "title": "Nowy produkt", 
+    "price": "99.99", 
+    "currency": "PLN"
+  }, 
+  "ceremony_id": "4c447a05-4632-41ea-a430-9474cbba49c4"
+}
+```
+
+### PUT /products/:id
+
+Edits a specific product by its id
+
+#### Example request
+
+```json
+Content-Type: application/json
+{
+  "product": {
+    "title": "Worki zmienne",
+    "price": "99.99", 
+    "currency": "PLN"
+  }
+}
+```
+```shell
+curl -X PUT http://localhost:3000/products/PRODUCT_ID \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{"product": {"title": "Worki zmienne", "price": "99.99", "currency": "PLN"}}'
+```
+
+### DELETE /products/:id
+
+Deletes a specific product by id
+
+#### Example request
+
+```bash
+DELETE /products/1
+```
+
+#### Output example (success)
+
+```json
+{
+  "message": "Product successfully deleted"
+}
+```
+
+#### Output example (error - not found)
+
+```json
+{
+  "error": "Product not found"
+}
+```
+
+### RESTORE /products/:id
+
+Restores a specific soft-deleted product by id
+
+#### Example request
+
+```bash
+PUT /products/1
+```
+
+#### Output example (success)
+
+```json
+{
+  "message": "Product successfully restored"
+}
+```
+
+#### Output example (error - not found)
+
+```json
+{
+  "error": "Product not found"
+}
+```

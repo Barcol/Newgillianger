@@ -22,7 +22,6 @@ RSpec.describe "POST /ceremonies", type: :request do
       let(:params) { { ceremony: { name: name, event_date: "invalid_date" } } }
       let(:name) { nil }
 
-
       it "does not create new ceremony" do
         expect { subject }.to_not change { Ceremony.count }
       end
