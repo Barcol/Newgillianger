@@ -20,8 +20,6 @@ class ProductCreator < BaseService
   attr_reader :ceremony_id
 
   def ceremony
-    return nil if ceremony_id.nil?
-
     @ceremony ||= Ceremony.find_by(id: ceremony_id)
   end
 end
