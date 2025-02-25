@@ -20,11 +20,16 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
-          working-directory: backend
-          
+          bundler-cache: false
+
       - name: Update RubyGems
         run: gem update --system 3.3.22
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Bundle install
+        run: bundle install --jobs 4 --retry 3 --path vendor/bundle
 
       - name: Security scan
         run: bundle exec brakeman -p . --no-pager --no-exit-on-warn
