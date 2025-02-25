@@ -3,7 +3,9 @@ require "rails_helper"
 RSpec.describe "Ceremonies", type: :request do
   describe "GET /ceremonies/:id/products" do
     let!(:ceremony) { create(:ceremony) }
-    let!(:products) { create_list(:product, 15, ceremony: ceremony) }
+    let!(:active_products) { create_list(:product, 15, ceremony: ceremony) }
+    let!(:inactive_products) { create_list(:product, 5, :inactive, ceremony: ceremony) }
+    let!(:product) { create(:product, :inactive, title: "Kurkuma niedobra") }
 
     subject { get products_ceremony_path(ceremony) }
 
@@ -19,6 +21,14 @@ RSpec.describe "Ceremonies", type: :request do
 
         json_response = JSON.parse(response.body)
         expect(json_response["products"].length).to eq(15)
+      end
+
+      it "returns only active products" do
+        subject
+
+        json_response = JSON.parse(response.body)
+        expect(json_response['products'].length).to eq(15)
+        expect(response.body).not_to include("Kurkuma niedobra")
       end
 
       context "when given with pagination parameters" do
