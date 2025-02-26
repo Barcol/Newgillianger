@@ -20,8 +20,20 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
+          bundler-cache: false
           working-directory: backend
+
+      - name: Update RubyGems
+        run: gem update --system
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Configure bundler path
+        run: bundle config set path vendor/bundle
+      
+      - name: Install gems
+        run: bundle install --jobs 4 --retry 3
 
       - name: Security scan
         run: bundle exec brakeman -p . --no-pager --no-exit-on-warn
@@ -39,8 +51,20 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
+          bundler-cache: false
           working-directory: backend
+
+      - name: Update RubyGems
+        run: gem update --system
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Configure bundler path
+        run: bundle config set path vendor/bundle
+
+      - name: Install gems
+        run: bundle install --jobs 4 --retry 3
 
       - name: Lint code for consistent style
         run: |
@@ -52,6 +76,9 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     services:
       postgres:
         image: postgres
@@ -63,21 +90,31 @@ jobs:
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips postgresql-client
-
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips postgresql-client
+    
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
-          working-directory: backend
-
+          bundler-cache: false
+    
+      - name: Update RubyGems
+        run: gem update --system
+    
+      - name: Install Bundler
+        run: gem install bundler
+    
+      - name: Configure bundler path
+        run: bundle config set path vendor/bundle
+    
+      - name: Install gems
+        run: bundle install --jobs 4 --retry 3
+  
       - name: Database setup
-        working-directory: backend
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
@@ -86,7 +123,6 @@ jobs:
           bundle exec rails db:migrate
 
       - name: Run RSpec tests
-        working-directory: backend
         run: bundle exec rspec
 
       - name: Upload screenshots
