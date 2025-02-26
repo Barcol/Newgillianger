@@ -121,10 +121,10 @@ jobs:
         run: |
           bundle exec rails db:create
           bundle exec rails db:migrate
-  
+
       - name: Run RSpec tests
         run: bundle exec rspec
-  
+
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
         if: failure()
