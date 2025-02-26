@@ -29,8 +29,11 @@ jobs:
       - name: Install Bundler
         run: gem install bundler
 
-      - name: Bundle install
-        run: bundle install --jobs 4 --retry 3 --path vendor/bundle
+      - name: Configure bundler path
+        run: bundle config set path vendor/bundle
+      
+      - name: Install gems
+        run: bundle install --jobs 4 --retry 3
 
       - name: Security scan
         run: bundle exec brakeman -p . --no-pager --no-exit-on-warn
@@ -57,8 +60,11 @@ jobs:
       - name: Install Bundler
         run: gem install bundler
 
-      - name: Bundle install
-        run: bundle install --jobs 4 --retry 3 --path vendor/bundle
+      - name: Configure bundler path
+        run: bundle config set path vendor/bundle
+      
+      - name: Install gems
+        run: bundle install --jobs 4 --retry 3
 
       - name: Lint code for consistent style
         run: |
@@ -100,8 +106,11 @@ jobs:
       - name: Install Bundler
         run: gem install bundler
 
-      - name: Bundle install
-        run: bundle install --jobs 4 --retry 3 --path vendor/bundle
+      - name: Configure bundler path
+        run: bundle config set path vendor/bundle
+      
+      - name: Install gems
+        run: bundle install --jobs 4 --retry 3
 
       - name: Database setup
         working-directory: backend
