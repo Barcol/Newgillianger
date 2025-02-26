@@ -96,28 +96,28 @@ jobs:
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips postgresql-client
-
       - name: Checkout code
         uses: actions/checkout@v4
-
+    
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips postgresql-client
+    
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: false
           working-directory: backend
-
+    
       - name: Update RubyGems
         run: gem update --system 3.3.22
-
+    
       - name: Install Bundler
         run: gem install bundler
-
+    
       - name: Configure bundler path
         run: bundle config set path vendor/bundle
-      
+    
       - name: Install gems
         run: bundle install --jobs 4 --retry 3
 
