@@ -23,6 +23,15 @@ jobs:
           bundler-cache: false
           working-directory: backend
 
+      - name: Debug current directory
+        run: |
+          pwd
+          ls -la
+
+      - name: Debug file existence
+        run: |
+          if [ -f Gemfile ]; then echo "Gemfile found"; else echo "Gemfile NOT found"; fi
+
       - name: Update RubyGems
         run: gem update --system 3.3.22
 
