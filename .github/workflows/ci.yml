@@ -85,6 +85,9 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     services:
       postgres:
         image: postgres
@@ -94,10 +97,19 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
-
+  
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+    
+      - name: Debug current directory
+        run: |
+          pwd
+          ls -la
+    
+      - name: Debug file existence
+        run: |
+          if [ -f Gemfile ]; then echo "Gemfile found"; else echo "Gemfile NOT found"; fi
     
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips postgresql-client
@@ -107,7 +119,6 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: false
-          working-directory: backend
     
       - name: Update RubyGems
         run: gem update --system 3.3.22
@@ -120,20 +131,18 @@ jobs:
     
       - name: Install gems
         run: bundle install --jobs 4 --retry 3
-
+  
       - name: Database setup
-        working-directory: backend
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
         run: |
           bundle exec rails db:create
           bundle exec rails db:migrate
-
+  
       - name: Run RSpec tests
-        working-directory: backend
         run: bundle exec rspec
-
+  
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
         if: failure()
