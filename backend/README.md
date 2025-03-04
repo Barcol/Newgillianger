@@ -17,6 +17,8 @@
         *   [PUT /products/:id](#put-productsid)
         *   [DELETE /products/:id](#delete-productsid)
         *   [RESTORE /products/:id](#restore-productsid)
+    *   [Users](#users)
+        *   [POST /users](#post-users)    
 
 ### Setup
 
@@ -335,3 +337,36 @@ PUT /products/1
   "error": "Product not found"
 }
 ```
+
+## Users
+### POST /users
+Creates user
+
+``` bash
+  curl -X POST localhost:3000/users -H 'Content-Type: application/json' -d '{"user": {"email": "newuser@example.com", "password": "securepassword123", "password_confirmation": "securepassword123"}}'
+```
+
+#### Output example (success)
+
+```json
+{
+  "message": "User successfully created"
+}
+```
+
+#### Output example (error - validation error)
+
+```json
+{
+  "message": "errors: {'password': ['cant be blank']}"
+}
+```
+
+#### Output example (error - email taken)
+
+```json
+{
+  "error":"Email address is already in use"
+}
+```
+
