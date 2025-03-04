@@ -20,7 +20,7 @@ RSpec.describe User, type: :model do
     end
 
     context "when password is too long" do
-      let(:password) { "a" * 256 }
+      let(:password) { "a" * 71 }
 
       it "is not valid" do
         expect(subject).not_to be_valid
