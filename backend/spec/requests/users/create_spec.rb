@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do
-  let(:user_params) { { user: { email: "usertest@example.com", password: "password123" } } }
+  let(:user_params) { { user: { email: "usertest@example.com", password: "password123", password_confirmation: "password123" } } }
   let(:params) { user_params }
 
   subject { post "/users", params: params, as: :json }
@@ -43,7 +43,7 @@ RSpec.describe UsersController, type: :request do
   end
 
   context "when the password is invalid" do
-    let(:params) { { user: { email: "usertest@example.com", password: "short" } } }
+    let(:params) { { user: { email: "usertest@example.com", password: "short", password_confirmation: "short" } } }
 
     it "does not create a new user" do
       expect { subject }.not_to change(User, :count)
@@ -58,6 +58,46 @@ RSpec.describe UsersController, type: :request do
       subject
       json_response = JSON.parse(response.body)
       expect(json_response["errors"]).to include("password" => [ "is too short (minimum is 8 characters)" ])
+    end
+  end
+
+  context "when the password confirmation is invalid" do
+    context "when the password confirmation doesn't match password" do
+      let(:params) { { user: { email: "usertest@example.com", password: "goodpassword", password_confirmation: "wrongpassword" } } }
+
+      it "does not create a new user" do
+        expect { subject }.not_to change(User, :count)
+      end
+
+      it "returns unprocessable_entity status" do
+        subject
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it "returns validation errors" do
+        subject
+        json_response = JSON.parse(response.body)
+        expect(json_response["errors"]).to include("password_confirmation" => [ "doesn't match Password" ])
+      end
+    end
+
+    context "when the password confirmation is empty" do
+      let(:params) { { user: { email: "usertest@example.com", password: "password", password_confirmation: nil } } }
+
+      it "does not create a new user" do
+        expect { subject }.not_to change(User, :count)
+      end
+
+      it "returns unprocessable_entity status" do
+        subject
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it "returns validation errors" do
+        subject
+        json_response = JSON.parse(response.body)
+        expect(json_response["errors"]).to include("password_confirmation" => [ "can't be blank" ])
+      end
     end
   end
 

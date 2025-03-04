@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:email) { "normalguy@example.com" }
   let(:password) { "password123" }
+  let(:password_confirmation) { "password123" }
 
-  subject { build(:user, email: email, password: password) }
+  subject { build(:user, email: email, password: password, password_confirmation: password_confirmation) }
 
   it "is valid with valid attributes" do
     expect(subject).to be_valid
@@ -29,6 +30,22 @@ RSpec.describe User, type: :model do
 
     context "when password is too short" do
       let(:password) { "short" }
+
+      it "is not valid" do
+        expect(subject).not_to be_valid
+      end
+    end
+
+    context "when password confirmation is nil" do
+      let(:password_confirmation) { nil }
+
+      it "is not valid" do
+        expect(subject).not_to be_valid
+      end
+    end
+
+    context "when password confirmation doesn't match password" do
+      let(:password_confirmation) { "eciepeciewparapecie" }
 
       it "is not valid" do
         expect(subject).not_to be_valid

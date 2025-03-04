@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe UserCreator do
-  let(:params) { { email: "usertest@example.com", password: "password123" } }
+  let(:params) { { email: "usertest@example.com", password: "password123", password_confirmation: "password123" } }
 
   describe ".call" do
     subject { described_class.call(params) }

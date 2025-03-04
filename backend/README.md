@@ -343,7 +343,7 @@ PUT /products/1
 Creates user
 
 ``` bash
-  curl -X POST localhost:3000/users -H 'Content-Type: application/json' -d '{"user": {"email": "newuser@example.com", "password": "securepassword123"}}'
+  curl -X POST localhost:3000/users -H 'Content-Type: application/json' -d '{"user": {"email": "newuser@example.com", "password": "securepassword123", "password_confirmation": "securepassword123"}}'
 ```
 
 #### Output example (success)
