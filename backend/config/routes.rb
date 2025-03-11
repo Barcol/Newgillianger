@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   get "messages/hello", to: "messages#hello"
+  post "/login", to: "sessions#create"
 
   concern :paginatable do
     get "(page/:page)", action: :index, on: :collection, as: ""
