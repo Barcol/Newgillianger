@@ -73,7 +73,3 @@ yarn-debug.log*
 
 # Credentials master key
 /config/master.key
-
-# Environment variables
-.env
-.env
