@@ -24,7 +24,6 @@ yarn-debug.log*
 
 # Environment variables
 .env
-.env.*
 
 # Database files
 /db/*.sqlite3
