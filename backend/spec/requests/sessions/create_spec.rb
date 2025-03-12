@@ -11,7 +11,7 @@ RSpec.describe "POST /login", type: :request do
     it "returns an ok status" do
       subject
       expect(response).to have_http_status(:ok)
-    end  
+    end
 
     it "returns a JWT token" do
       subject
