@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do
   let(:user) { create(:user) }
-  let(:token) { JWT.encode({ user_id: user.id }, ENV["CREDENTIALS_SECRET_KEY"]) }
+  let(:secret_key) { Rails.application.config.credentials_secret_key }
+  let(:token) { JWT.encode({ user_id: user.id }, secret_key) }
   let(:headers) { { "Authorization" => "Bearer #{token}" } }
 
   subject { patch "/users/#{user.id}", params: params, headers: headers }
@@ -75,7 +76,7 @@ RSpec.describe UsersController, type: :request do
 
   context "when the user is not authorized" do
     let(:another_user) { create(:user) }
-    let(:unauthorized_token) { JWT.encode({ user_id: another_user.id }, ENV["CREDENTIALS_SECRET_KEY"]) }
+    let(:unauthorized_token) { JWT.encode({ user_id: another_user.id }, secret_key) }
     let(:headers) { { "Authorization" => "Bearer #{unauthorized_token}" } }
     let(:params) { { user: { email: "newemail@example.com" } } }
 

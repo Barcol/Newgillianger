@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
     token = header.split(" ").last if header
 
     begin
-      secret_key = ENV["CREDENTIALS_SECRET_KEY"]
+      secret_key = Rails.application.config.credentials_secret_key
       decoded = JWT.decode(token, secret_key)[0]
       @current_user = User.find(decoded["user_id"])
     rescue JWT::DecodeError, ActiveRecord::RecordNotFound
