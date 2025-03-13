@@ -20,16 +20,16 @@ class ApplicationController < ActionController::API
 
   def authorize_user!(record)
     return render_forbidden unless authorized?(record)
-    
+
     true
   end
-  
+
   def authorized?(record)
     return record.id == current_user.id if record.is_a?(User)
 
     record.user_id == current_user.id
   end
-  
+
   def render_forbidden
     render json: { error: "Forbidden" }, status: :forbidden
     false
