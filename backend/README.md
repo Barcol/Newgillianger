@@ -370,3 +370,22 @@ Creates user
 }
 ```
 
+### POST /login
+
+Allow users to login by creating token
+
+``` bash
+  curl -X POST http://localhost:3000/login -H "Content-Type: application/json" -d '{"email":"newuser@example.com","password":"securepassword123"}'
+```
+
+### Output exaple - success
+
+```sh
+{"token":"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYjQ5MjA5N2MtODY3ZC00NTdkLWE2MWYtZDI0MmJhOWM1NjBkIiwiZXhwIjoxNzQxODA5OTc1fQ.Qut4zsHYNpz4Mv-_DdWY-sJd_b28U7qspo2OONP03qM"}
+```
+
+### Output example (error - invalid credentials )
+
+```sh
+{"error":"Invalid credentials"}
+```

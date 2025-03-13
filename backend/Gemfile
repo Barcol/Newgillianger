@@ -38,6 +38,12 @@ gem "kaminari", "~> 1.2", ">= 1.2.2"
 # Ruby static code analyzer and code formatter
 gem "rubocop", "~> 1.71.0"
 
+# Ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
+gem "jwt"
+
+# Autoload dotenv in Rails
+gem "dotenv-rails", "~> 2.7"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mswin mswin64 mingw x64_mingw ], require: "debug/prelude"
