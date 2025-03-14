@@ -22,10 +22,9 @@ class ApplicationController < ActionController::API
     true
   end
 
-  def authorized?(record)
-    return record.id == current_user.id if record.is_a?(User)
-
-    record.user_id == current_user.id
+  def authorized?(user)
+    return user.id == current_user.id if user.is_a?(User)
+    false
   end
 
   def render_forbidden
