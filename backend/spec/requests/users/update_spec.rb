@@ -19,6 +19,12 @@ RSpec.describe UsersController, type: :request do
     it "updates the user's email" do
       expect { subject }.to change { user.reload.email }.to("newemail@example.com")
     end
+
+    it "returns success message" do
+      subject
+      json_response = JSON.parse(response.body)
+      expect(json_response).to include("message" => "User successfully updated")
+    end
   end
 
   context "when the email is invalid" do

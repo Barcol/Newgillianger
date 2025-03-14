@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     return unless authorize_user!(user)
 
     if user.update(user_update_params)
-      render json: { email: user.email }, status: :ok
+      render json: { email: user.email, message: "User successfully updated" }, status: :ok
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
