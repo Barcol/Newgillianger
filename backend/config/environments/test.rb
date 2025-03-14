@@ -53,4 +53,7 @@ Rails.application.configure do
 
   # To opt in to the behaviour of the reviver to_time will always preserwe the full timezone.
   config.active_support.to_time_preserves_timezone = :zone
+
+  # Credentials secret key for session tokens
+  config.credentials_secret_key = "0" * 128
 end

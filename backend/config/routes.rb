@@ -25,5 +25,5 @@ Rails.application.routes.draw do
       post :restore
     end
   end
-  resources :users, only: [ :create ]
+  resources :users, only: [ :create, :update ]
 end

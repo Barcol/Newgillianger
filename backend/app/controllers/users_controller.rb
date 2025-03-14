@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user, only: %i[update]
+
   # POST /users
   def create
     result, data = UserCreator.call(user_params)
@@ -13,9 +15,26 @@ class UsersController < ApplicationController
     end
   end
 
+  # PATCH /users/:id
+  def update
+    user = User.find(params[:id])
+
+    return unless authorize_user!(user)
+
+    if user.update(user_update_params)
+      render json: { email: user.email, message: "User successfully updated" }, status: :ok
+    else
+      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def user_update_params
+    params.require(:user).permit(:email)
   end
 end

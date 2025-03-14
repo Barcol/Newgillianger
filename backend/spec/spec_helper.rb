@@ -91,4 +91,11 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  # Set persistance path to save failed specs
+  config.example_status_persistence_file_path = "spec/examples.txt"
+
+  # Set filter to run focused tests with ease
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
 end
