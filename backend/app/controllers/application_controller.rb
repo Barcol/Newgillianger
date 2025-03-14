@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
   private
 
+  attr_reader :current_user
+
   def authenticate_user
     header = request.headers["Authorization"]
     token = header.split(" ").last if header
@@ -12,10 +14,6 @@ class ApplicationController < ActionController::API
     rescue JWT::DecodeError, ActiveRecord::RecordNotFound
       render json: { error: "Unauthorized" }, status: :unauthorized
     end
-  end
-
-  def current_user
-    @current_user
   end
 
   def authorize_user!(record)
