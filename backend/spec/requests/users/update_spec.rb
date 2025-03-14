@@ -56,6 +56,12 @@ RSpec.describe UsersController, type: :request do
       json_response = JSON.parse(response.body)
       expect(json_response["errors"]).to include("Email has already been taken")
     end
+
+    it "does not change user email" do
+      original_email = user.email
+      subject
+      expect(user.reload.email).to eq(original_email)
+    end
   end
 
   context "when password is in params" do
