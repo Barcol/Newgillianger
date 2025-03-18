@@ -46,13 +46,10 @@ yarn-debug.log*
 /.bundle
 /vendor/bundle
 
-# Test temporary files
-/test/tmp/
-/test/version_tmp/
-
 # Temporary files
 /tmp/*
 !/tmp/.keep
+spec/examples.txt
 
 # Public uploads
 /public/uploads
@@ -70,6 +67,3 @@ yarn-debug.log*
 
 # Byebug history
 .byebug_history
-
-# Credentials master key
-/config/master.key
