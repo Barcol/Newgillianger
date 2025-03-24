@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe ResetPasswordService do
   let(:user) { create(:user, reset_password_token: SecureRandom.hex(20), reset_password_sent_at: Time.current) }
-  let(:valid_password) { "newsecurepassword" }
   let(:token) { user.reset_password_token }
 
   describe ".call" do
@@ -13,7 +12,7 @@ RSpec.describe ResetPasswordService do
       let(:password_confirmation) { "newsecurepassword" }
 
       it "resets the user's password" do
-        expect { subject }.to change { user.reload.authenticate(valid_password) }.from(false).to(user)
+        expect { subject }.to change { user.reload.authenticate("newsecurepassword") }.from(false).to(user)
       end
 
       it "removes the reset token" do
