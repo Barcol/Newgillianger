@@ -14,7 +14,7 @@ class PasswordsController < ApplicationController
 
   def reset
     result = ResetPasswordService.call(params[:token], params[:password], params[:password_confirmation])
-  
+
     case result
     when :success
       render json: { message: "Password has been successfully changed." }, status: :ok
@@ -24,8 +24,10 @@ class PasswordsController < ApplicationController
       render json: { error: "Password is too short." }, status: :unprocessable_entity
     when :password_too_long
       render json: { error: "Password is too long" }, status: :unprocessable_entity
-    when :invalid_or_expired_token
-      render json: { error: "Invalid or expired token." }, status: :unprocessable_entity
+    when :invalid_token
+      render json: { error: "Invalid token." }, status: :unprocessable_entity
+    when :expired_token
+      render json: { error: "Expired token." }, status: :unprocessable_entity
     else
       render json: { error: "An error occurred while updating the password." }, status: :unprocessable_entity
     end

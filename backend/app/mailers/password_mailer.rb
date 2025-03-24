@@ -1,5 +1,5 @@
 class PasswordMailer < ApplicationMailer
-  default from: 'office@newgillianger.com'
+  default from: "office@newgillianger.com"
 
   def reset_password_email
     @user = params[:user]
