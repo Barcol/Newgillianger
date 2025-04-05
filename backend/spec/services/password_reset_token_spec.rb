@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ForgotPasswordService do
+RSpec.describe PasswordResetTokenService do
   let(:user) { create(:user, reset_password_token: nil, reset_password_sent_at: nil) }
 
   describe ".call" do

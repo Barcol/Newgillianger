@@ -1,4 +1,4 @@
-class ForgotPasswordService < BaseService
+class PasswordResetTokenService < BaseService
   def initialize(user_email)
     @user_email = user_email
   end

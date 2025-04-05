@@ -1,6 +1,6 @@
 class PasswordsController < ApplicationController
-  def forgot
-    result = ForgotPasswordService.call(params[:email])
+  def request_password_reset
+    result = PasswordResetTokenService.call(params[:email])
 
     case result
     when :success
