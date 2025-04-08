@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get "messages/hello", to: "messages#hello"
   post "/login", to: "sessions#create"
+  post "password/forgot", to: "passwords#request_password_reset"
+  post "password/reset", to: "passwords#reset"
 
   concern :paginatable do
     get "(page/:page)", action: :index, on: :collection, as: ""
